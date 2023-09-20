@@ -19,11 +19,7 @@ const PostCard = ({ id, title, body }: IPostType) => {
         {title}
       </p>
 
-      <p
-        className={cn(
-          "font-secondary text-neutral-700 leading-relaxed line-clamp-4 mb-6"
-        )}
-      >
+      <p className={cn("text-neutral-700 leading-relaxed line-clamp-4 mb-6")}>
         {body}
       </p>
 

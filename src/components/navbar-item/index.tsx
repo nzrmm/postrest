@@ -12,7 +12,7 @@ const NavbarItem = ({ href, name, ...props }: INavbarItemProps) => {
 
   const isActive = () => {
     if (href === "/" && pathname === href) return true;
-    if (href !== "/" && pathname.includes(href)) return true;
+    if (href !== "/" && pathname?.includes(href)) return true;
 
     return false;
   };
