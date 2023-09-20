@@ -4,6 +4,6 @@ export type IRouteType = {
 };
 
 export const ROUTES: IRouteType[] = [
-  { href: "/", name: "Home" },
+  { href: "/posts", name: "Posts" },
   { href: "/users", name: "Users" },
 ];
