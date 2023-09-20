@@ -1,7 +1,7 @@
 import { cn } from "@/utils/style";
-import { IComment } from "@/types/comment";
+import { ICommentType } from "@/types/comment";
 
-const CommentCard = ({ name, email, body }: IComment) => {
+const CommentCard = ({ name, email, body }: ICommentType) => {
   return (
     <div>
       <div className={cn("mb-2")}>
