@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { GoArrowUpRight } from "react-icons/go";
 
 import { Button } from "@/components";
 import { cn } from "@/utils/style";
@@ -31,8 +32,10 @@ const PostCard = ({ id, title, body }: IPostType) => {
         size="sm"
         variant="primary"
         onClick={() => router.push(`/posts/${id}`)}
+        className={cn("flex items-center gap-2")}
       >
         Read more
+        <GoArrowUpRight size={16} />
       </Button>
     </div>
   );
