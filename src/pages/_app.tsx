@@ -2,6 +2,8 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Space_Grotesk } from "next/font/google";
 
+import { MainLayout } from "@/layouts";
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   preload: true,
@@ -20,8 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
           font-family: var(--font-space-grotesk);
         }
       `}</style>
-
-      <Component {...pageProps} />
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     </>
   );
 }
