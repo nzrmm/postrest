@@ -1,8 +1,11 @@
 import React from "react";
+import { cn } from "@/utils/style";
 
 const Home = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen">Home</div>
+    <div className={cn("flex justify-center items-center min-h-screen")}>
+      Home
+    </div>
   );
 };
 
