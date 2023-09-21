@@ -1,4 +1,5 @@
 export { default as Badge } from "@/components/badge";
+export { default as Modal } from "@/components/modal";
 export { default as Table } from "@/components/table";
 export { default as Button } from "@/components/button";
 export { default as BoxIcon } from "@/components/box-icon";
