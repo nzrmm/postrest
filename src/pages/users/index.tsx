@@ -1,7 +1,8 @@
 import React from "react";
 import Head from "next/head";
+import { BiTrash, BiPencil, BiSearch } from "react-icons/bi";
 
-import { Table, IColumnType } from "@/components";
+import { Table, IColumnType, BoxIcon } from "@/components";
 import { cn } from "@/utils/style";
 import { IUserType } from "@/types/user";
 
@@ -21,6 +22,25 @@ const columns: IColumnType<IUserType>[] = [
     title: "Status",
     render: (_, { status }) => (
       <span className={cn("capitalize")}>{status}</span>
+    ),
+  },
+  {
+    key: "action",
+    title: "Action",
+    render: () => (
+      <div className={cn("flex items-center gap-1")}>
+        <BoxIcon onClick={() => {}}>
+          <BiTrash size={20} color={"#F43F5E"} />
+        </BoxIcon>
+
+        <BoxIcon onClick={() => {}}>
+          <BiPencil size={20} color={"#F59E0B"} />
+        </BoxIcon>
+
+        <BoxIcon onClick={() => {}}>
+          <BiSearch size={20} color={"#171717"} />
+        </BoxIcon>
+      </div>
     ),
   },
 ];
