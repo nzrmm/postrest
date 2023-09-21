@@ -3,7 +3,7 @@ import { ICommentType } from "@/types/comment";
 
 const CommentCard = ({ name, email, body }: ICommentType) => {
   return (
-    <div>
+    <div className={cn("py-2")}>
       <div className={cn("mb-2")}>
         <p className={cn("font-semibold")}>{name}</p>
         <p className={cn("text-xs text-neutral-500")}>{email}</p>

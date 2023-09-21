@@ -4,7 +4,6 @@ import { ImSpinner6 } from "react-icons/im";
 
 import { PostCard } from "@/components";
 import { cn } from "@/utils/style";
-
 import { IPostType } from "@/types/post";
 import { usePosts } from "@/queries/post";
 

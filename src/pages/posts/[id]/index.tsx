@@ -1,23 +1,28 @@
 import React from "react";
+import { isEmpty } from "lodash";
+import { useRouter } from "next/router";
 
 import { CommentCard } from "@/components";
 import { cn } from "@/utils/style";
+import { IPostType } from "@/types/post";
+import { ICommentType } from "@/types/comment";
+import { usePost, usePostComments } from "@/queries/post";
 
 const Post = () => {
+  const router = useRouter();
+  const postId = router.query?.id as string;
+
+  const { data: post } = usePost<IPostType>(postId);
+  const { data: comments } = usePostComments<ICommentType[]>(postId);
+
   return (
     <>
       <div className={cn("mx-auto sm:w-2/3")}>
         <div className={cn("mb-20")}>
           <p className={cn("font-bold tracking-tight text-4xl mb-6")}>
-            Vel numquam benigne damnatio certe coniuratio.
+            {post?.title}
           </p>
-          <p className={cn("text-neutral-700 leading-relaxed")}>
-            Certo valetudo thalassinus. Spero torqueo amissio. Auxilium viscus
-            catena. Apparatus laudantium est. Avarus condico astrum. Clarus creo
-            aeneus. Vacuus congregatio desino. Calcar suggero fuga. Curis coma
-            amitto. Teres delinquo utpote. Inflammatio clementia fugiat. Cumque
-            artificiose spargo.
-          </p>
+          <p className={cn("text-neutral-700 leading-relaxed")}>{post?.body}</p>
         </div>
 
         <div>
@@ -25,13 +30,14 @@ const Post = () => {
             Comments
           </p>
           <div className={cn("flex flex-col divide-y")}>
-            <CommentCard
-              id={56926}
-              post_id={70220}
-              name="Prof. Chandrani Mukhopadhyay"
-              email="chandrani_mukhopadhyay_prof@ward.example"
-              body="Dolorum nam suscipit."
-            />
+            {!isEmpty(comments) &&
+              comments?.map((item) => <CommentCard key={item.id} {...item} />)}
+
+            {isEmpty(comments) && (
+              <p className={cn("italic text-neutral-700")}>
+                no comments available
+              </p>
+            )}
           </div>
         </div>
       </div>
