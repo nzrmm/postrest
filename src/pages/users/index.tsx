@@ -5,6 +5,7 @@ import { BiTrash, BiPencil, BiSearch } from "react-icons/bi";
 import { Table, IColumnType, BoxIcon, Badge } from "@/components";
 import { cn } from "@/utils/style";
 import { IUserType } from "@/types/user";
+import { useUsers } from "@/queries/user";
 
 const columns: IColumnType<IUserType>[] = [
   { key: "id", title: "Id" },
@@ -48,22 +49,7 @@ const columns: IColumnType<IUserType>[] = [
 ];
 
 const Users = () => {
-  const users = [
-    {
-      id: 5184389,
-      name: "Ganapati Nehru",
-      email: "nehru_ganapati@buckridge.example",
-      gender: "female",
-      status: "active",
-    },
-    {
-      id: 5184388,
-      name: "Mrs. Vaidehi Tandon",
-      email: "mrs_vaidehi_tandon@nikolaus.test",
-      gender: "female",
-      status: "inactive",
-    },
-  ];
+  const { data } = useUsers<IUserType[]>();
 
   return (
     <>
@@ -94,7 +80,7 @@ const Users = () => {
         </div>
 
         <div className={cn("mb-10")}>
-          <Table data={users} columns={columns} />
+          <Table data={data || []} columns={columns} />
         </div>
       </div>
     </>
