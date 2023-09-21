@@ -2,10 +2,9 @@ import React from "react";
 import { isEmpty } from "lodash";
 import { useRouter } from "next/router";
 
-import { CommentCard } from "@/components";
+import { PostCommentCard } from "@/components";
 import { cn } from "@/utils/style";
-import { IPostType } from "@/types/post";
-import { ICommentType } from "@/types/comment";
+import { IPostType, IPostCommentType } from "@/types/post";
 import { usePost, usePostComments } from "@/queries/post";
 
 const Post = () => {
@@ -13,7 +12,7 @@ const Post = () => {
   const postId = router.query?.id as string;
 
   const { data: post } = usePost<IPostType>(postId);
-  const { data: comments } = usePostComments<ICommentType[]>(postId);
+  const { data: postComments } = usePostComments<IPostCommentType[]>(postId);
 
   return (
     <>
@@ -30,10 +29,12 @@ const Post = () => {
             Comments
           </p>
           <div className={cn("flex flex-col divide-y")}>
-            {!isEmpty(comments) &&
-              comments?.map((item) => <CommentCard key={item.id} {...item} />)}
+            {!isEmpty(postComments) &&
+              postComments?.map((item) => (
+                <PostCommentCard key={item.id} {...item} />
+              ))}
 
-            {isEmpty(comments) && (
+            {isEmpty(postComments) && (
               <p className={cn("italic text-neutral-700")}>
                 no comments available
               </p>

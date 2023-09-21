@@ -1,7 +1,7 @@
 import { cn } from "@/utils/style";
-import { ICommentType } from "@/types/comment";
+import { IPostCommentType } from "@/types/post";
 
-const CommentCard = ({ name, email, body }: ICommentType) => {
+const PostCommentCard = ({ name, email, body }: IPostCommentType) => {
   return (
     <div className={cn("py-2")}>
       <div className={cn("mb-2")}>
@@ -13,4 +13,4 @@ const CommentCard = ({ name, email, body }: ICommentType) => {
   );
 };
 
-export default CommentCard;
+export default PostCommentCard;

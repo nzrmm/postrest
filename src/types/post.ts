@@ -4,3 +4,11 @@ export type IPostType = {
   title: string;
   body: string;
 };
+
+export type IPostCommentType = {
+  id: number;
+  post_id: number;
+  name: string;
+  email: string;
+  body: string;
+};
