@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { BiTrash, BiPencil, BiSearch } from "react-icons/bi";
 
-import { Table, IColumnType, BoxIcon } from "@/components";
+import { Table, IColumnType, BoxIcon, Badge } from "@/components";
 import { cn } from "@/utils/style";
 import { IUserType } from "@/types/user";
 
@@ -21,7 +21,9 @@ const columns: IColumnType<IUserType>[] = [
     key: "status",
     title: "Status",
     render: (_, { status }) => (
-      <span className={cn("capitalize")}>{status}</span>
+      <Badge variant={status === "active" ? "success" : "danger"}>
+        {status}
+      </Badge>
     ),
   },
   {
