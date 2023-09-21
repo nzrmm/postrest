@@ -1,10 +1,16 @@
 import React from "react";
 import Head from "next/head";
+import { ImSpinner6 } from "react-icons/im";
 
 import { PostCard } from "@/components";
 import { cn } from "@/utils/style";
 
+import { IPostType } from "@/types/post";
+import { usePosts } from "@/queries/post";
+
 const Posts = () => {
+  const { data, isLoading, isError, error } = usePosts<IPostType[]>();
+
   return (
     <>
       <Head>
@@ -34,14 +40,19 @@ const Posts = () => {
           </p>
         </div>
 
-        <div className={cn("grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10")}>
-          <PostCard
-            id={70220}
-            user_id={5181930}
-            title="Vel numquam benigne damnatio certe coniuratio."
-            body="Certo valetudo thalassinus. Spero torqueo amissio. Auxilium viscus catena. Apparatus laudantium est. Avarus condico astrum. Clarus creo aeneus. Vacuus congregatio desino. Calcar suggero fuga. Curis coma amitto. Teres delinquo utpote. Inflammatio clementia fugiat. Cumque artificiose spargo."
-          />
-        </div>
+        {isLoading && <ImSpinner6 className={cn("animate-spin")} />}
+
+        {!isLoading && isError && (
+          <p className={cn("text-rose-500")}>{error.message}</p>
+        )}
+
+        {!isLoading && data && (
+          <div className={cn("grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10")}>
+            {data?.map((item: IPostType) => (
+              <PostCard key={item.id} {...item} />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
