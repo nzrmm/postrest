@@ -21,19 +21,15 @@ const Posts = () => {
       </Head>
 
       <div>
-        <div className={cn("mb-14")}>
+        <div className={cn("mb-8")}>
           <p
             className={cn(
-              "text-5xl font-bold leading-tight tracking-wide mb-4"
+              "text-4xl font-bold leading-tight tracking-wide mb-1"
             )}
           >
             All Post
           </p>
-          <p
-            className={cn(
-              "text-lg font-normal leading-loose tracking-wider text-neutral-700"
-            )}
-          >
+          <p className={cn("leading-loose text-neutral-700")}>
             Collection of posts from https://gorest.co.in/ api. Feel free to
             reads.
           </p>
