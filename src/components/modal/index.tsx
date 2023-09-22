@@ -29,7 +29,7 @@ const Modal = ({ isOpen, onClose, children, ...props }: IModalProps) => {
       <div
         className={cn(
           "relative bg-white rounded-lg shadow",
-          "sm:w-3/4 md:w-2/4 xl:w-1/4"
+          "w-[88%] sm:w-3/4 md:w-2/4 xl:w-1/3"
         )}
       >
         <div
