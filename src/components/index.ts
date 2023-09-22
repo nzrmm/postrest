@@ -4,6 +4,7 @@ export { default as Table } from "@/components/table";
 export { default as Button } from "@/components/button";
 export { default as BoxIcon } from "@/components/box-icon";
 export { default as PostCard } from "@/components/post-card";
+export { default as TextInput } from "@/components/text-input";
 export { default as NavbarItem } from "@/components/navbar-item";
 export { default as PostCommentCard } from "@/components/post-comment-card";
 
