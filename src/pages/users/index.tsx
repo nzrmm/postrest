@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ImSpinner6 } from "react-icons/im";
@@ -10,6 +9,7 @@ import {
   Modal,
   Button,
   BoxIcon,
+  FormModal,
   IColumnType,
 } from "@/components";
 
@@ -21,7 +21,6 @@ const Users = () => {
   const router = useRouter();
   const userId = router.query?.id as string;
   const isOpenModalDetail = router.query?.isOpenModalDetail as string;
-  const [isOpen, setIsOpen] = useState(false);
 
   const { data } = useUsers<IUserType[]>();
   const { data: user, isLoading: isLoadingUser } = useUser<IUserType>(userId, {
@@ -57,7 +56,14 @@ const Users = () => {
             <BiTrash size={20} color={"#F43F5E"} />
           </BoxIcon>
 
-          <BoxIcon onClick={() => {}}>
+          <BoxIcon
+            onClick={() => {
+              router.push({
+                pathname: "/users",
+                query: { id, isOpenModalForm: true },
+              });
+            }}
+          >
             <BiPencil size={20} color={"#F59E0B"} />
           </BoxIcon>
 
@@ -87,14 +93,8 @@ const Users = () => {
       </Head>
 
       <div>
-        {/* Modal add user */}
-        <Modal
-          title="Add User"
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-        >
-          Modal Add User
-        </Modal>
+        {/* Form modal */}
+        <FormModal />
 
         {/* Modal detail user */}
         <Modal
@@ -158,7 +158,12 @@ const Users = () => {
             id="add-user-button"
             size="sm"
             variant="primary"
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              router.push({
+                pathname: "/users",
+                query: { isOpenModalForm: true },
+              });
+            }}
           >
             Add User
           </Button>
