@@ -11,8 +11,13 @@ const Post = () => {
   const router = useRouter();
   const postId = router.query?.id as string;
 
-  const { data: post } = usePost<IPostType>(postId);
-  const { data: postComments } = usePostComments<IPostCommentType[]>(postId);
+  const { data: post } = usePost<IPostType>(postId, {
+    enabled: router.isReady,
+  });
+
+  const { data: postComments } = usePostComments<IPostCommentType[]>(postId, {
+    enabled: router.isReady,
+  });
 
   return (
     <>
