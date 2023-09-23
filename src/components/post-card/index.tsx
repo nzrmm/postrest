@@ -24,7 +24,7 @@ const PostCard = ({ id, title, body }: IPostType) => {
       </p>
 
       <Button
-        id="post-detail-button"
+        id={`post-detail-${id}-button`}
         size="sm"
         variant="primary"
         onClick={() => router.push(`/posts/${id}`)}
