@@ -16,7 +16,12 @@ import { cn } from "@/utils/style";
 import { IUserType } from "@/types/user";
 import { useUsers } from "@/queries/user";
 import { useAppDispatch } from "@/stores/hooks";
-import { setModalState } from "@/stores/user/userSlice";
+
+import {
+  setFormModal,
+  setDetailModal,
+  setDeleteModal,
+} from "@/stores/user/userSlice";
 
 const Users = () => {
   const dispatch = useAppDispatch();
@@ -24,31 +29,23 @@ const Users = () => {
   const { data } = useUsers<IUserType[]>();
 
   const handleDetailUser = (id: number) => {
-    dispatch(
-      setModalState({ modal: "detailModal", field: "isOpen", value: true })
-    );
-    dispatch(setModalState({ modal: "detailModal", field: "id", value: id }));
+    dispatch(setDetailModal({ field: "isOpen", value: true }));
+    dispatch(setDetailModal({ field: "id", value: id }));
   };
 
   const handleAddUser = () => {
-    dispatch(
-      setModalState({ modal: "formModal", field: "isOpen", value: true })
-    );
-    dispatch(setModalState({ modal: "formModal", field: "id", value: null }));
+    dispatch(setFormModal({ field: "isOpen", value: true }));
+    dispatch(setFormModal({ field: "id", value: null }));
   };
 
   const handleEditUser = (id: number) => {
-    dispatch(
-      setModalState({ modal: "formModal", field: "isOpen", value: true })
-    );
-    dispatch(setModalState({ modal: "formModal", field: "id", value: id }));
+    dispatch(setFormModal({ field: "isOpen", value: true }));
+    dispatch(setFormModal({ field: "id", value: id }));
   };
 
   const handleDeleteUser = (id: number) => {
-    dispatch(
-      setModalState({ modal: "deleteModal", field: "isOpen", value: true })
-    );
-    dispatch(setModalState({ modal: "deleteModal", field: "id", value: id }));
+    dispatch(setDeleteModal({ field: "isOpen", value: true }));
+    dispatch(setDeleteModal({ field: "id", value: id }));
   };
 
   const columns: IColumnType<IUserType>[] = [

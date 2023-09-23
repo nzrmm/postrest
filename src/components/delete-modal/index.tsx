@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Modal, Button } from "@/components";
 import { cn } from "@/utils/style";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
-import { setModalState } from "@/stores/user/userSlice";
+import { setDeleteModal } from "@/stores/user/userSlice";
 import { useDeleteUser } from "@/queries/user";
 
 const DeleteModal = () => {
@@ -13,10 +13,8 @@ const DeleteModal = () => {
   const { mutate, isLoading, isSuccess } = useDeleteUser();
 
   const handleCloseModal = () => {
-    dispatch(
-      setModalState({ modal: "deleteModal", field: "isOpen", value: false })
-    );
-    dispatch(setModalState({ modal: "deleteModal", field: "id", value: null }));
+    dispatch(setDeleteModal({ field: "isOpen", value: false }));
+    dispatch(setDeleteModal({ field: "id", value: null }));
   };
 
   useEffect(() => {

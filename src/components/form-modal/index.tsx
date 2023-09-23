@@ -5,11 +5,10 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 
 import { Modal, Button, TextInput } from "@/components";
 import { cn } from "@/utils/style";
-import { useAddUser, useEditUser } from "@/queries/user";
+import { useUser, useAddUser, useEditUser } from "@/queries/user";
 import { IUserPayload, IUserType } from "@/types/user";
-import { useUser } from "@/queries/user";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
-import { setModalState } from "@/stores/user/userSlice";
+import { setFormModal } from "@/stores/user/userSlice";
 
 const schema = yup
   .object({
@@ -74,10 +73,8 @@ const FormModal = () => {
 
   const handleCloseModal = () => {
     reset({}, { keepValues: false });
-    dispatch(setModalState({ modal: "formModal", field: "id", value: null }));
-    dispatch(
-      setModalState({ modal: "formModal", field: "isOpen", value: false })
-    );
+    dispatch(setFormModal({ field: "isOpen", value: false }));
+    dispatch(setFormModal({ field: "id", value: null }));
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { IUserType } from "@/types/user";
 import { cn } from "@/utils/style";
 import { useUser } from "@/queries/user";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
-import { setModalState } from "@/stores/user/userSlice";
+import { setDetailModal } from "@/stores/user/userSlice";
 
 const DetailModal = () => {
   const dispatch = useAppDispatch();
@@ -19,10 +19,8 @@ const DetailModal = () => {
   );
 
   const handleCloseModal = () => {
-    dispatch(
-      setModalState({ modal: "detailModal", field: "isOpen", value: false })
-    );
-    dispatch(setModalState({ modal: "detailModal", field: "id", value: null }));
+    dispatch(setDetailModal({ field: "isOpen", value: false }));
+    dispatch(setDetailModal({ field: "id", value: null }));
   };
 
   return (

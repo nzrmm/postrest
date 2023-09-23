@@ -30,20 +30,45 @@ const foodSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setModalState: (
+    setDetailModal: (
       state,
       action: PayloadAction<{
-        modal: keyof IInitialStateType;
         field: keyof IModalStateType;
         value: IModalStateType[keyof IModalStateType];
       }>
     ) => {
-      const { modal, field, value } = action.payload;
+      const { field, value } = action.payload;
 
-      (state[modal][field] as IModalStateType[keyof IModalStateType]) = value;
+      (state.detailModal[field] as IModalStateType[keyof IModalStateType]) =
+        value;
+    },
+    setFormModal: (
+      state,
+      action: PayloadAction<{
+        field: keyof IModalStateType;
+        value: IModalStateType[keyof IModalStateType];
+      }>
+    ) => {
+      const { field, value } = action.payload;
+
+      (state.formModal[field] as IModalStateType[keyof IModalStateType]) =
+        value;
+    },
+    setDeleteModal: (
+      state,
+      action: PayloadAction<{
+        field: keyof IModalStateType;
+        value: IModalStateType[keyof IModalStateType];
+      }>
+    ) => {
+      const { field, value } = action.payload;
+
+      (state.formModal[field] as IModalStateType[keyof IModalStateType]) =
+        value;
     },
   },
 });
 
 export default foodSlice.reducer;
-export const { setModalState } = foodSlice.actions;
+export const { setDetailModal, setFormModal, setDeleteModal } =
+  foodSlice.actions;
