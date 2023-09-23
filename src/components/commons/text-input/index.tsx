@@ -19,6 +19,7 @@ const textInputVariants = cva(
 
 type ITextInputProps = ComponentProps<"input"> & {
   id: string;
+  note?: string;
   label?: string;
   wrapperClassName?: string;
   errors?: FieldErrors;
@@ -28,6 +29,7 @@ type ITextInputProps = ComponentProps<"input"> & {
 
 const TextInput = ({
   id,
+  note,
   label,
   errors,
   variant,
@@ -44,13 +46,16 @@ const TextInput = ({
         id={id}
         className={cn(textInputVariants({ variant, className }), {
           "border-rose-500": errors && errors[id],
+          "mt-1": label,
         })}
         {...(register && { ...register(id) })}
         {...props}
       />
 
+      {note && <span className={cn("span-small block px-1 mt-1")}>{note}</span>}
+
       {errors && errors[id] && (
-        <span className={cn("span-small-error")}>
+        <span className={cn("span-small-error block px-1 mt-1")}>
           {(errors[id] as FieldError).message}
         </span>
       )}

@@ -14,8 +14,8 @@ const schema = yup
   .object({
     name: yup.string().required(),
     email: yup.string().email().required(),
-    gender: yup.string().required(),
-    status: yup.string().required(),
+    gender: yup.string().oneOf(["male", "female"]),
+    status: yup.string().oneOf(["active", "inactive"]),
   })
   .required();
 
@@ -117,6 +117,7 @@ const FormModal = () => {
             label="Gender"
             id="gender"
             type="text"
+            note={"* Fill with [male, female] value"}
             placeholder="Input your gender..."
             register={register}
             errors={errors}
@@ -126,6 +127,7 @@ const FormModal = () => {
             label="Status"
             id="status"
             type="text"
+            note={"* Fill with [active, inactive] value"}
             placeholder="Input your status..."
             register={register}
             errors={errors}
