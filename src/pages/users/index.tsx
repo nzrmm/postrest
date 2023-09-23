@@ -123,7 +123,7 @@ const Users = () => {
         <DeleteModal />
 
         <div className={cn("flex justify-between items-center mb-4")}>
-          <div>
+          <div className={cn("flex-1")}>
             <h1 className={cn("mb-1")}>All User</h1>
             <p>Collection of users from https://gorest.co.in/ api.</p>
           </div>
@@ -132,6 +132,7 @@ const Users = () => {
             id="add-user-button"
             size="sm"
             variant="primary"
+            className={cn("w-32")}
             onClick={() => handleAddUser()}
           >
             Add User
@@ -142,7 +143,7 @@ const Users = () => {
           <TextInput
             id="name"
             type="text"
-            className={cn("w-96")}
+            className={cn("w-full", "sm:w-1/2", "lg:w-1/3")}
             placeholder="Input your name..."
             value={params.search}
             onChange={({ target }) => {

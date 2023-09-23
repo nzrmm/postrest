@@ -20,7 +20,7 @@ const Modal = ({ isOpen, onClose, children, ...props }: IModalProps) => {
   const modalContent = (
     <div
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 p-4",
+        "fixed top-0 left-0 right-0 z-50",
         "overflow-x-hidden overflow-y-auto",
         "w-full min-h-screen bg-neutral-900/30",
         "flex justify-center items-center"
@@ -34,7 +34,7 @@ const Modal = ({ isOpen, onClose, children, ...props }: IModalProps) => {
       >
         <div
           className={cn(
-            "flex items-center justify-between border-b border-b-neutral-200 p-4"
+            "flex items-center justify-between border-b border-b-neutral-200 p-5"
           )}
         >
           <h5>{props.title}</h5>
@@ -48,7 +48,7 @@ const Modal = ({ isOpen, onClose, children, ...props }: IModalProps) => {
           </div>
         </div>
 
-        <div className="p-4">{children}</div>
+        <div className="p-5">{children}</div>
       </div>
     </div>
   );
