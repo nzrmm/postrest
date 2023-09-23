@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { isEmpty } from "lodash";
 import { BiTrash, BiPencil, BiSearch } from "react-icons/bi";
 
 import {
@@ -10,6 +11,7 @@ import {
   TextInput,
   DetailModal,
   DeleteModal,
+  InfinitePagination,
   IColumnType,
 } from "@/components";
 
@@ -55,6 +57,10 @@ const Users = () => {
   const handleDeleteUser = (id: number) => {
     dispatch(setDeleteModal({ field: "isOpen", value: true }));
     dispatch(setDeleteModal({ field: "id", value: id }));
+  };
+
+  const handlePagination = (page: number) => {
+    dispatch(setParams({ field: "page", value: page }));
   };
 
   const columns: IColumnType<IUserType>[] = [
@@ -158,6 +164,14 @@ const Users = () => {
         <div className={cn("mb-10")}>
           <Table data={data || []} columns={columns} />
         </div>
+
+        <InfinitePagination
+          page={params.page}
+          disableOnNext={isEmpty(data)}
+          disableOnPrevious={params.page <= 1}
+          onNext={() => handlePagination(params.page + 1)}
+          onPrevious={() => handlePagination(params.page - 1)}
+        />
       </div>
     </>
   );

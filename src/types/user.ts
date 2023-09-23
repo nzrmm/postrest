@@ -14,5 +14,7 @@ export type IUserPayload = {
 };
 
 export type IUserParams = {
+  page: number;
+  limit: number;
   search: string;
 };

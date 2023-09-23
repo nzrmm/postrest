@@ -9,11 +9,14 @@ import axiosInstance from "@/utils/axios-utils";
 import { IUserPayload, IUserParams } from "@/types/user";
 
 export const useUsers = <T>(params: IUserParams) => {
-  const { search } = params;
+  const { page, limit, search } = params;
+
   return useQuery<T, Error>({
-    queryKey: ["get_users", search],
+    queryKey: ["get_users", page, limit, search],
     queryFn: async () => {
-      const { data } = await axiosInstance.get(`/users?name=${search}`);
+      const { data } = await axiosInstance.get(
+        `/users?page=${page}&limit=${limit}&name=${search}`
+      );
       return data;
     },
   });

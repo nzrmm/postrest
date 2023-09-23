@@ -10,6 +10,8 @@ type IInitialStateType = {
   formModal: IModalStateType;
   deleteModal: IModalStateType;
   params: {
+    page: number;
+    limit: number;
     search: string;
   };
 };
@@ -28,6 +30,8 @@ const initialState: IInitialStateType = {
     id: null,
   },
   params: {
+    page: 1,
+    limit: 10,
     search: "",
   },
 };
