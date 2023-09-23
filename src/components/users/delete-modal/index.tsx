@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import { Modal, Button } from "@/components/commons";
 import { cn } from "@/utils/style";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
@@ -10,18 +8,12 @@ const DeleteModal = () => {
   const dispatch = useAppDispatch();
   const { deleteModal } = useAppSelector((state) => state.user);
 
-  const { mutate, isLoading, isSuccess } = useDeleteUser();
+  const { mutate, isLoading } = useDeleteUser();
 
   const handleCloseModal = () => {
     dispatch(setDeleteModal({ field: "isOpen", value: false }));
     dispatch(setDeleteModal({ field: "id", value: null }));
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      handleCloseModal();
-    }
-  }, [isSuccess]);
 
   return (
     <Modal
@@ -53,7 +45,11 @@ const DeleteModal = () => {
             variant="primary"
             isLoading={isLoading}
             className={cn("w-full")}
-            onClick={() => mutate(Number(deleteModal.id))}
+            onClick={() =>
+              mutate(Number(deleteModal.id), {
+                onSuccess: () => handleCloseModal(),
+              })
+            }
           >
             Delete
           </Button>

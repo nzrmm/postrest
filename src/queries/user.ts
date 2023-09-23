@@ -24,7 +24,7 @@ export const useUsers = <T>(params: IUserParams) => {
 
 export const useUser = <T>(id: number, options?: UseQueryOptions<T, Error>) => {
   return useQuery<T, Error>({
-    queryKey: ["get_users", id],
+    queryKey: ["get_user", id],
     queryFn: async () => {
       const { data } = await axiosInstance.get(`users/${id}`);
       return data;

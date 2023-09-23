@@ -27,17 +27,8 @@ const FormModal = () => {
     enabled: !!formModal.id,
   });
 
-  const {
-    mutate: addUser,
-    isLoading: isLoadingAddUser,
-    isSuccess: isSuccessAddUser,
-  } = useAddUser();
-
-  const {
-    mutate: editUser,
-    isLoading: isLoadingEditUser,
-    isSuccess: isSuccessEditUser,
-  } = useEditUser();
+  const { mutate: addUser, isLoading: isLoadingAddUser } = useAddUser();
+  const { mutate: editUser, isLoading: isLoadingEditUser } = useEditUser();
 
   const {
     reset,
@@ -56,6 +47,16 @@ const FormModal = () => {
     }, [user]),
   });
 
+  useEffect(() => {
+    reset(user);
+  }, [user]);
+
+  const handleCloseModal = () => {
+    reset({}, { keepValues: false });
+    dispatch(setFormModal({ field: "isOpen", value: false }));
+    dispatch(setFormModal({ field: "id", value: null }));
+  };
+
   const handleFormUser: SubmitHandler<FieldValues> = async (data) => {
     const payload: IUserPayload = {
       name: data.name,
@@ -65,27 +66,14 @@ const FormModal = () => {
     };
 
     if (formModal.id) {
-      editUser({ id: formModal.id, ...payload });
+      editUser(
+        { id: formModal.id, ...payload },
+        { onSuccess: () => handleCloseModal() }
+      );
     } else {
-      addUser(payload);
+      addUser(payload, { onSuccess: () => handleCloseModal() });
     }
   };
-
-  const handleCloseModal = () => {
-    reset({}, { keepValues: false });
-    dispatch(setFormModal({ field: "isOpen", value: false }));
-    dispatch(setFormModal({ field: "id", value: null }));
-  };
-
-  useEffect(() => {
-    if (isSuccessAddUser || isSuccessEditUser) {
-      handleCloseModal();
-    }
-  }, [isSuccessAddUser, isSuccessEditUser]);
-
-  useEffect(() => {
-    reset(user);
-  }, [user]);
 
   return (
     <Modal
