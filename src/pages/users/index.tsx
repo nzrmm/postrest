@@ -143,7 +143,7 @@ const Users = () => {
             id="name"
             type="text"
             className={cn("w-full", "sm:w-1/2", "lg:w-1/3")}
-            placeholder="Input your name..."
+            placeholder="Search user..."
             value={params.search}
             onChange={({ target }) => {
               dispatch(setParams({ field: "search", value: target.value }));
