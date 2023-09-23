@@ -1,4 +1,4 @@
-import React from "react";
+import Head from "next/head";
 import { isEmpty } from "lodash";
 import { useRouter } from "next/router";
 
@@ -21,6 +21,11 @@ const Post = () => {
 
   return (
     <>
+      <Head>
+        <title>{post?.title} - Postrest.</title>
+        <meta name="description" content={post?.body} />
+      </Head>
+
       <div className={cn("mx-auto sm:w-2/3")}>
         <div className={cn("mb-20")}>
           <p className={cn("font-bold tracking-tight text-4xl mb-6")}>
