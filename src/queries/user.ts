@@ -43,3 +43,18 @@ export const useAddUser = () => {
     },
   });
 };
+
+export const useDeleteUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: number) => {
+      return axiosInstance.delete(`/users/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get_users"],
+      });
+    },
+  });
+};

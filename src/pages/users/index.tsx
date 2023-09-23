@@ -8,6 +8,7 @@ import {
   BoxIcon,
   FormModal,
   DetailModal,
+  DeleteModal,
   IColumnType,
 } from "@/components";
 
@@ -43,6 +44,13 @@ const Users = () => {
     dispatch(setModalState({ modal: "formModal", field: "id", value: id }));
   };
 
+  const handleDeleteUser = (id: number) => {
+    dispatch(
+      setModalState({ modal: "deleteModal", field: "isOpen", value: true })
+    );
+    dispatch(setModalState({ modal: "deleteModal", field: "id", value: id }));
+  };
+
   const columns: IColumnType<IUserType>[] = [
     { key: "id", title: "Id" },
     { key: "name", title: "Name" },
@@ -68,7 +76,7 @@ const Users = () => {
       title: "Action",
       render: (_, { id }) => (
         <div className={cn("flex items-center gap-1")}>
-          <BoxIcon onClick={() => {}}>
+          <BoxIcon onClick={() => handleDeleteUser(id)}>
             <BiTrash size={20} color={"#F43F5E"} />
           </BoxIcon>
 
@@ -98,8 +106,11 @@ const Users = () => {
         {/* Form modal */}
         <FormModal />
 
-        {/* Modal detail user */}
+        {/* Detail modal */}
         <DetailModal />
+
+        {/* Delete modal */}
+        <DeleteModal />
 
         <div className={cn("flex justify-between items-center mb-8")}>
           <div>
