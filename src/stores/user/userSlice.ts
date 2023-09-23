@@ -73,7 +73,7 @@ const foodSlice = createSlice({
     ) => {
       const { field, value } = action.payload;
 
-      (state.formModal[field] as IModalStateType[keyof IModalStateType]) =
+      (state.deleteModal[field] as IModalStateType[keyof IModalStateType]) =
         value;
     },
     setParams: (
