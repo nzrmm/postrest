@@ -7,6 +7,7 @@ import {
   Button,
   BoxIcon,
   FormModal,
+  TextInput,
   DetailModal,
   DeleteModal,
   IColumnType,
@@ -15,7 +16,9 @@ import {
 import { cn } from "@/utils/style";
 import { IUserType } from "@/types/user";
 import { useUsers } from "@/queries/user";
-import { useAppDispatch } from "@/stores/hooks";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { setParams } from "@/stores/user/userSlice";
+import useDebounce from "@/hooks/use-debounce";
 
 import {
   setFormModal,
@@ -25,8 +28,14 @@ import {
 
 const Users = () => {
   const dispatch = useAppDispatch();
+  const { params } = useAppSelector((state) => state.user);
 
-  const { data } = useUsers<IUserType[]>();
+  const debouncedSearchTerm = useDebounce(params.search, 300);
+
+  const { data } = useUsers<IUserType[]>({
+    ...params,
+    search: debouncedSearchTerm,
+  });
 
   const handleDetailUser = (id: number) => {
     dispatch(setDetailModal({ field: "isOpen", value: true }));
@@ -109,7 +118,7 @@ const Users = () => {
         {/* Delete modal */}
         <DeleteModal />
 
-        <div className={cn("flex justify-between items-center mb-8")}>
+        <div className={cn("flex justify-between items-center mb-4")}>
           <div>
             <p
               className={cn(
@@ -131,6 +140,19 @@ const Users = () => {
           >
             Add User
           </Button>
+        </div>
+
+        <div className={cn("mb-8")}>
+          <TextInput
+            id="name"
+            type="text"
+            className={cn("w-96")}
+            placeholder="Input your name..."
+            value={params.search}
+            onChange={({ target }) => {
+              dispatch(setParams({ field: "search", value: target.value }));
+            }}
+          />
         </div>
 
         <div className={cn("mb-10")}>

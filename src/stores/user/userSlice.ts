@@ -9,6 +9,9 @@ type IInitialStateType = {
   detailModal: IModalStateType;
   formModal: IModalStateType;
   deleteModal: IModalStateType;
+  params: {
+    search: string;
+  };
 };
 
 const initialState: IInitialStateType = {
@@ -23,6 +26,9 @@ const initialState: IInitialStateType = {
   deleteModal: {
     isOpen: false,
     id: null,
+  },
+  params: {
+    search: "",
   },
 };
 
@@ -66,9 +72,23 @@ const foodSlice = createSlice({
       (state.formModal[field] as IModalStateType[keyof IModalStateType]) =
         value;
     },
+    setParams: (
+      state,
+      action: PayloadAction<{
+        field: keyof IInitialStateType["params"];
+        value: IInitialStateType["params"][keyof IInitialStateType["params"]];
+      }>
+    ) => {
+      const { field, value } = action.payload;
+
+      (state.params[
+        field
+      ] as IInitialStateType["params"][keyof IInitialStateType["params"]]) =
+        value;
+    },
   },
 });
 
 export default foodSlice.reducer;
-export const { setDetailModal, setFormModal, setDeleteModal } =
+export const { setDetailModal, setFormModal, setDeleteModal, setParams } =
   foodSlice.actions;

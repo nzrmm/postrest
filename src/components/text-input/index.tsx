@@ -19,11 +19,11 @@ const textInputVariants = cva(
 
 type ITextInputProps = ComponentProps<"input"> & {
   id: string;
-  label: string;
+  label?: string;
   wrapperClassName?: string;
-  errors: FieldErrors;
+  errors?: FieldErrors;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: UseFormRegister<any>;
+  register?: UseFormRegister<any>;
 } & VariantProps<typeof textInputVariants>;
 
 const TextInput = ({
@@ -38,21 +38,22 @@ const TextInput = ({
 }: ITextInputProps) => {
   return (
     <div className={cn("w-full", wrapperClassName)}>
-      <label htmlFor={id}>{label}</label>
+      {label && <label htmlFor={id}>{label}</label>}
+
       <input
         id={id}
         className={cn(textInputVariants({ variant, className }), {
-          "border-rose-500": errors[id],
+          "border-rose-500": errors && errors[id],
         })}
-        {...register(id)}
+        {...(register && { ...register(id) })}
         {...props}
       />
-      {errors[id] && (
+
+      {errors && errors[id] && (
         <span className={cn("text-sm text-rose-500")}>
           {(errors[id] as FieldError).message}
         </span>
       )}
-      <span></span>
     </div>
   );
 };

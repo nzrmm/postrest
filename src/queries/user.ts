@@ -6,13 +6,14 @@ import {
 } from "@tanstack/react-query";
 
 import axiosInstance from "@/utils/axios-utils";
-import { IUserPayload } from "@/types/user";
+import { IUserPayload, IUserParams } from "@/types/user";
 
-export const useUsers = <T>() => {
+export const useUsers = <T>(params: IUserParams) => {
+  const { search } = params;
   return useQuery<T, Error>({
-    queryKey: ["get_users"],
+    queryKey: ["get_users", search],
     queryFn: async () => {
-      const { data } = await axiosInstance.get("/users");
+      const { data } = await axiosInstance.get(`/users?name=${search}`);
       return data;
     },
   });
