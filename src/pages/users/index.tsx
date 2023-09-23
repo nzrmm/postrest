@@ -34,7 +34,7 @@ const Users = () => {
 
   const debouncedSearchTerm = useDebounce(params.search, 300);
 
-  const { data } = useUsers<IUserType[]>({
+  const { data, isLoading } = useUsers<IUserType[]>({
     ...params,
     search: debouncedSearchTerm,
   });
@@ -162,7 +162,7 @@ const Users = () => {
         </div>
 
         <div className={cn("mb-10")}>
-          <Table data={data || []} columns={columns} />
+          <Table data={data || []} columns={columns} isLoading={isLoading} />
         </div>
 
         <InfinitePagination
