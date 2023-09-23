@@ -2,7 +2,7 @@ import Head from "next/head";
 import { isEmpty } from "lodash";
 import { useRouter } from "next/router";
 
-import { PostCommentCard } from "@/components";
+import { PostCommentCard } from "@/components/posts";
 import { cn } from "@/utils/style";
 import { IPostType, IPostCommentType } from "@/types/post";
 import { usePost, usePostComments } from "@/queries/post";

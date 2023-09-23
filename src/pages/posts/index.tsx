@@ -3,7 +3,8 @@ import Head from "next/head";
 import { isEmpty } from "lodash";
 import { ImSpinner6 } from "react-icons/im";
 
-import { PostCard, InfinitePagination } from "@/components";
+import { InfinitePagination } from "@/components/commons";
+import { PostCard } from "@/components/posts";
 import { cn } from "@/utils/style";
 import { IPostType } from "@/types/post";
 import { usePosts } from "@/queries/post";
@@ -12,7 +13,7 @@ import { setParams } from "@/stores/post/postSlice";
 
 const Posts = () => {
   const dispatch = useAppDispatch();
-  const { params } = useAppSelector((state) => state.user);
+  const { params } = useAppSelector((state) => state.post);
 
   const { data, isLoading, isError, error } = usePosts<IPostType[]>(params);
 

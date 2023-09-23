@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { NavbarItem } from "@/components";
+import { NavbarItem } from "@/components/commons";
 import { ROUTES } from "@/constants/route";
 import { cn } from "@/utils/style";
 

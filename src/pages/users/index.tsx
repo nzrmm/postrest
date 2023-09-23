@@ -7,13 +7,12 @@ import {
   Badge,
   Button,
   BoxIcon,
-  FormModal,
   TextInput,
-  DetailModal,
-  DeleteModal,
   InfinitePagination,
   IColumnType,
-} from "@/components";
+} from "@/components/commons";
+
+import { FormModal, DetailModal, DeleteModal } from "@/components/users";
 
 import { cn } from "@/utils/style";
 import { IUserType } from "@/types/user";
@@ -108,7 +107,7 @@ const Users = () => {
         <title>All User - Postrest.</title>
         <meta
           name="description"
-          content="a collection of post from https://gorest.co.in/ api"
+          content="a collection of user from https://gorest.co.in/ api"
         />
       </Head>
 

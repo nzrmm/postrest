@@ -1,6 +1,6 @@
 import { ImSpinner6 } from "react-icons/im";
 
-import { Modal, Badge } from "@/components";
+import { Modal, Badge } from "@/components/commons";
 import { IUserType } from "@/types/user";
 import { cn } from "@/utils/style";
 import { useUser } from "@/queries/user";

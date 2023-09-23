@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { GoArrowUpRight } from "react-icons/go";
 
-import { Button } from "@/components";
+import { Button } from "@/components/commons";
 import { cn } from "@/utils/style";
 import { IPostType } from "@/types/post";
 

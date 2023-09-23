@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { Modal, Button } from "@/components";
+import { Modal, Button } from "@/components/commons";
 import { cn } from "@/utils/style";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { setDeleteModal } from "@/stores/user/userSlice";
