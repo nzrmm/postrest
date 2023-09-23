@@ -12,11 +12,11 @@ const Post = () => {
   const postId = router.query?.id as string;
 
   const { data: post } = usePost<IPostType>(postId, {
-    enabled: router.isReady,
+    enabled: !!postId,
   });
 
   const { data: postComments } = usePostComments<IPostCommentType[]>(postId, {
-    enabled: router.isReady,
+    enabled: !!postId,
   });
 
   return (

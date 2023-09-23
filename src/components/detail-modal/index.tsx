@@ -11,12 +11,9 @@ const DetailModal = () => {
   const dispatch = useAppDispatch();
   const { detailModal } = useAppSelector((state) => state.user);
 
-  const { data: user, isLoading: isLoadingUser } = useUser<IUserType>(
-    Number(detailModal.id),
-    {
-      enabled: !!detailModal.id,
-    }
-  );
+  const { data, isLoading } = useUser<IUserType>(Number(detailModal.id), {
+    enabled: !!detailModal.id,
+  });
 
   const handleCloseModal = () => {
     dispatch(setDetailModal({ field: "isOpen", value: false }));
@@ -25,38 +22,38 @@ const DetailModal = () => {
 
   return (
     <Modal
-      title={isLoadingUser ? "Detail User" : user?.name}
+      title={isLoading ? "Detail User" : data?.name}
       isOpen={detailModal.isOpen}
       onClose={() => handleCloseModal()}
     >
-      {isLoadingUser && <ImSpinner6 className={cn("animate-spin")} />}
+      {isLoading && <ImSpinner6 className={cn("animate-spin")} />}
 
-      {!isLoadingUser && user && (
+      {!isLoading && data && (
         <div className={cn("flex flex-col gap-3")}>
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Id</p>
-            <p>: {user?.id}</p>
+            <p>: {data?.id}</p>
           </div>
 
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Name</p>
-            <p>: {user?.name}</p>
+            <p>: {data?.name}</p>
           </div>
 
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Email</p>
-            <p>: {user?.email}</p>
+            <p>: {data?.email}</p>
           </div>
 
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Gender</p>
-            <p>: {user?.gender}</p>
+            <p>: {data?.gender}</p>
           </div>
 
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Status</p>
             <div className={cn("flex items-center gap-1")}>
-              : <Badge>{user?.status}</Badge>
+              : <Badge>{data?.status}</Badge>
             </div>
           </div>
         </div>
