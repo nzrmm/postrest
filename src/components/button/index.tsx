@@ -1,5 +1,6 @@
 import { ComponentProps } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { ImSpinner6 } from "react-icons/im";
 
 import { cn } from "@/utils/style";
 
@@ -18,22 +19,28 @@ const buttonVariants = cva("font-medium rounded-full", {
   },
 });
 
-type IButtonProps = ComponentProps<"button"> &
+type IButtonProps = {
+  isLoading?: boolean;
+} & ComponentProps<"button"> &
   VariantProps<typeof buttonVariants>;
 
 const Button = ({
   size,
   variant,
+  isLoading,
   className,
   children,
   ...props
 }: IButtonProps) => {
   return (
     <button
-      className={cn(buttonVariants({ size, variant, className }))}
+      className={cn(
+        buttonVariants({ size, variant, className }),
+        "flex justify-center items-center"
+      )}
       {...props}
     >
-      {children}
+      {isLoading ? <ImSpinner6 className={cn("animate-spin")} /> : children}
     </button>
   );
 };
