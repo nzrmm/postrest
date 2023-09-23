@@ -18,7 +18,7 @@ export const useUsers = <T>() => {
   });
 };
 
-export const useUser = <T>(id: string, options?: UseQueryOptions<T, Error>) => {
+export const useUser = <T>(id: number, options?: UseQueryOptions<T, Error>) => {
   return useQuery<T, Error>({
     queryKey: ["get_users", id],
     queryFn: async () => {

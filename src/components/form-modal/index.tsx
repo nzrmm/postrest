@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useEffect } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
@@ -7,7 +7,8 @@ import { Modal, Button, TextInput } from "@/components";
 import { cn } from "@/utils/style";
 import { useAddUser } from "@/queries/user";
 import { IUserPayload } from "@/types/user";
-import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { setModalState } from "@/stores/user/userSlice";
 
 const schema = yup
   .object({
@@ -19,10 +20,8 @@ const schema = yup
   .required();
 
 const FormModal = () => {
-  const router = useRouter();
-
-  const userId = router.query?.id as string;
-  const isOpenModalForm = router.query?.isOpenModalForm as string;
+  const dispatch = useAppDispatch();
+  const { formModal } = useAppSelector((state) => state.user);
 
   const { mutate, isLoading, isSuccess } = useAddUser();
 
@@ -46,20 +45,25 @@ const FormModal = () => {
     mutate(payload);
   };
 
+  const handleCloseModal = () => {
+    reset();
+    dispatch(setModalState({ modal: "formModal", field: "id", value: null }));
+    dispatch(
+      setModalState({ modal: "formModal", field: "isOpen", value: false })
+    );
+  };
+
   useEffect(() => {
     if (isSuccess) {
-      reset();
-      router.push({
-        pathname: "/users",
-      });
+      handleCloseModal();
     }
   }, [isSuccess]);
 
   return (
     <Modal
-      title={isOpenModalForm && userId ? "Edit User" : "Add User"}
-      isOpen={Boolean(isOpenModalForm)}
-      onClose={() => router.push({ pathname: "/users" })}
+      title={formModal.id ? "Edit User" : "Add User"}
+      isOpen={Boolean(formModal.isOpen)}
+      onClose={() => handleCloseModal()}
     >
       <form onSubmit={handleSubmit(handleAddUser)}>
         <div className={cn("grid gap-4 mb-6")}>
@@ -107,10 +111,7 @@ const FormModal = () => {
             size="sm"
             variant="primary"
             className={cn("w-full")}
-            onClick={() => {
-              reset();
-              router.push({ pathname: "/users" });
-            }}
+            onClick={() => handleCloseModal()}
           >
             Back
           </Button>

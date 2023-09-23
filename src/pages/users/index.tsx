@@ -1,31 +1,47 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { ImSpinner6 } from "react-icons/im";
 import { BiTrash, BiPencil, BiSearch } from "react-icons/bi";
 
 import {
   Table,
   Badge,
-  Modal,
   Button,
   BoxIcon,
   FormModal,
+  DetailModal,
   IColumnType,
 } from "@/components";
 
 import { cn } from "@/utils/style";
 import { IUserType } from "@/types/user";
-import { useUser, useUsers } from "@/queries/user";
+import { useUsers } from "@/queries/user";
+import { useAppDispatch } from "@/stores/hooks";
+import { setModalState } from "@/stores/user/userSlice";
 
 const Users = () => {
-  const router = useRouter();
-  const userId = router.query?.id as string;
-  const isOpenModalDetail = router.query?.isOpenModalDetail as string;
+  const dispatch = useAppDispatch();
 
   const { data } = useUsers<IUserType[]>();
-  const { data: user, isLoading: isLoadingUser } = useUser<IUserType>(userId, {
-    enabled: !!userId,
-  });
+
+  const handleDetailUser = (id: number) => {
+    dispatch(
+      setModalState({ modal: "detailModal", field: "isOpen", value: true })
+    );
+    dispatch(setModalState({ modal: "detailModal", field: "id", value: id }));
+  };
+
+  const handleAddUser = () => {
+    dispatch(
+      setModalState({ modal: "formModal", field: "isOpen", value: true })
+    );
+    dispatch(setModalState({ modal: "formModal", field: "id", value: null }));
+  };
+
+  const handleEditUser = (id: number) => {
+    dispatch(
+      setModalState({ modal: "formModal", field: "isOpen", value: true })
+    );
+    dispatch(setModalState({ modal: "formModal", field: "id", value: id }));
+  };
 
   const columns: IColumnType<IUserType>[] = [
     { key: "id", title: "Id" },
@@ -56,25 +72,11 @@ const Users = () => {
             <BiTrash size={20} color={"#F43F5E"} />
           </BoxIcon>
 
-          <BoxIcon
-            onClick={() => {
-              router.push({
-                pathname: "/users",
-                query: { id, isOpenModalForm: true },
-              });
-            }}
-          >
+          <BoxIcon onClick={() => handleEditUser(id)}>
             <BiPencil size={20} color={"#F59E0B"} />
           </BoxIcon>
 
-          <BoxIcon
-            onClick={() => {
-              router.push({
-                pathname: "/users",
-                query: { id, isOpenModalDetail: true },
-              });
-            }}
-          >
+          <BoxIcon onClick={() => handleDetailUser(id)}>
             <BiSearch size={20} color={"#171717"} />
           </BoxIcon>
         </div>
@@ -97,48 +99,7 @@ const Users = () => {
         <FormModal />
 
         {/* Modal detail user */}
-        <Modal
-          title={isLoadingUser ? "Detail User" : user?.name}
-          isOpen={Boolean(isOpenModalDetail)}
-          onClose={() =>
-            router.push({
-              pathname: "/users",
-            })
-          }
-        >
-          {isLoadingUser && <ImSpinner6 className={cn("animate-spin")} />}
-
-          {!isLoadingUser && user && (
-            <div className={cn("flex flex-col gap-3")}>
-              <div className={cn("flex items-center")}>
-                <p className={cn("w-28 font-bold")}>Id</p>
-                <p className={cn("text-neutral-700")}>: {user?.id}</p>
-              </div>
-
-              <div className={cn("flex items-center")}>
-                <p className={cn("w-28 font-bold")}>Name</p>
-                <p className={cn("text-neutral-700")}>: {user?.name}</p>
-              </div>
-
-              <div className={cn("flex items-center")}>
-                <p className={cn("w-28 font-bold")}>Email</p>
-                <p className={cn("text-neutral-700")}>: {user?.email}</p>
-              </div>
-
-              <div className={cn("flex items-center")}>
-                <p className={cn("w-28 font-bold")}>Gender</p>
-                <p className={cn("text-neutral-700")}>: {user?.gender}</p>
-              </div>
-
-              <div className={cn("flex items-center")}>
-                <p className={cn("w-28 font-bold")}>Status</p>
-                <div className={cn("flex items-center gap-1")}>
-                  : <Badge>{user?.status}</Badge>
-                </div>
-              </div>
-            </div>
-          )}
-        </Modal>
+        <DetailModal />
 
         <div className={cn("flex justify-between items-center mb-8")}>
           <div>
@@ -158,12 +119,7 @@ const Users = () => {
             id="add-user-button"
             size="sm"
             variant="primary"
-            onClick={() => {
-              router.push({
-                pathname: "/users",
-                query: { isOpenModalForm: true },
-              });
-            }}
+            onClick={() => handleAddUser()}
           >
             Add User
           </Button>

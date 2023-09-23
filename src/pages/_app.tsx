@@ -10,6 +10,8 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { MainLayout } from "@/layouts";
+import { Provider } from "react-redux";
+import { store } from "@/stores/store";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -41,14 +43,16 @@ export default function App({ Component, pageProps }: AppProps) {
         }
       `}</style>
 
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <MainLayout>
-            <Component {...pageProps} />
-          </MainLayout>
-        </Hydrate>
-        <ReactQueryDevtools position="bottom-right" />
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
+          </Hydrate>
+          <ReactQueryDevtools position="bottom-right" />
+        </QueryClientProvider>
+      </Provider>
     </>
   );
 }

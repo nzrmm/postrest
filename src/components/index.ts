@@ -7,6 +7,7 @@ export { default as PostCard } from "@/components/post-card";
 export { default as FormModal } from "@/components/form-modal";
 export { default as TextInput } from "@/components/text-input";
 export { default as NavbarItem } from "@/components/navbar-item";
+export { default as DetailModal } from "@/components/detail-modal";
 export { default as PostCommentCard } from "@/components/post-comment-card";
 
 export type { IColumnType } from "@/components/table";
