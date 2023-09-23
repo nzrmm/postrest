@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 
 import { Modal, Button, TextInput } from "@/components";
 import { cn } from "@/utils/style";
-import { useAddUser } from "@/queries/user";
-import { IUserPayload } from "@/types/user";
+import { useAddUser, useEditUser } from "@/queries/user";
+import { IUserPayload, IUserType } from "@/types/user";
+import { useUser } from "@/queries/user";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { setModalState } from "@/stores/user/userSlice";
 
@@ -23,7 +24,21 @@ const FormModal = () => {
   const dispatch = useAppDispatch();
   const { formModal } = useAppSelector((state) => state.user);
 
-  const { mutate, isLoading, isSuccess } = useAddUser();
+  const { data: user } = useUser<IUserType>(Number(formModal.id), {
+    enabled: !!formModal.id,
+  });
+
+  const {
+    mutate: addUser,
+    isLoading: isLoadingAddUser,
+    isSuccess: isSuccessAddUser,
+  } = useAddUser();
+
+  const {
+    mutate: editUser,
+    isLoading: isLoadingEditUser,
+    isSuccess: isSuccessEditUser,
+  } = useEditUser();
 
   const {
     reset,
@@ -32,9 +47,17 @@ const FormModal = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: useMemo(() => {
+      return {
+        name: user?.name || "",
+        email: user?.email || "",
+        gender: user?.gender || "",
+        status: user?.status || "",
+      };
+    }, [user]),
   });
 
-  const handleAddUser: SubmitHandler<FieldValues> = async (data) => {
+  const handleFormUser: SubmitHandler<FieldValues> = async (data) => {
     const payload: IUserPayload = {
       name: data.name,
       email: data.email,
@@ -42,11 +65,15 @@ const FormModal = () => {
       status: data.status,
     };
 
-    mutate(payload);
+    if (formModal.id) {
+      editUser({ id: formModal.id, ...payload });
+    } else {
+      addUser(payload);
+    }
   };
 
   const handleCloseModal = () => {
-    reset();
+    reset({}, { keepValues: false });
     dispatch(setModalState({ modal: "formModal", field: "id", value: null }));
     dispatch(
       setModalState({ modal: "formModal", field: "isOpen", value: false })
@@ -54,10 +81,14 @@ const FormModal = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccessAddUser || isSuccessEditUser) {
       handleCloseModal();
     }
-  }, [isSuccess]);
+  }, [isSuccessAddUser, isSuccessEditUser]);
+
+  useEffect(() => {
+    reset(user);
+  }, [user]);
 
   return (
     <Modal
@@ -65,7 +96,7 @@ const FormModal = () => {
       isOpen={Boolean(formModal.isOpen)}
       onClose={() => handleCloseModal()}
     >
-      <form onSubmit={handleSubmit(handleAddUser)}>
+      <form onSubmit={handleSubmit(handleFormUser)}>
         <div className={cn("grid gap-4 mb-6")}>
           <TextInput
             label="Name"
@@ -121,10 +152,10 @@ const FormModal = () => {
             type="submit"
             size="sm"
             variant="primary"
-            isLoading={isLoading}
+            isLoading={formModal.id ? isLoadingEditUser : isLoadingAddUser}
             className={cn("w-full")}
           >
-            Add
+            {formModal.id ? "Edit" : "Add"}
           </Button>
         </div>
       </form>

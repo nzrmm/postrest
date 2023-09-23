@@ -44,6 +44,21 @@ export const useAddUser = () => {
   });
 };
 
+export const useEditUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, ...payload }: { id: number } & IUserPayload) => {
+      return axiosInstance.patch(`/users/${id}`, payload);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get_users"],
+      });
+    },
+  });
+};
+
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
