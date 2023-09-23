@@ -22,8 +22,8 @@ const Post = () => {
   return (
     <>
       <Head>
-        <title>{post?.title} - Postrest.</title>
-        <meta name="description" content={post?.body} />
+        <title>{`${post?.title || ""} - Postrest.`}</title>
+        <meta name="description" content={`${post?.body || ""}`} />
       </Head>
 
       <div className={cn("mx-auto sm:w-2/3")}>
