@@ -70,9 +70,7 @@ const Users = () => {
     {
       key: "gender",
       title: "Gender",
-      render: (_, { gender }) => (
-        <span className={cn("capitalize")}>{gender}</span>
-      ),
+      render: (_, { gender }) => <p className={cn("capitalize")}>{gender}</p>,
     },
     {
       key: "status",
@@ -126,16 +124,8 @@ const Users = () => {
 
         <div className={cn("flex justify-between items-center mb-4")}>
           <div>
-            <p
-              className={cn(
-                "text-4xl font-bold leading-tight tracking-wide mb-1"
-              )}
-            >
-              All User
-            </p>
-            <p className={cn("leading-loose text-neutral-700")}>
-              Collection of users from https://gorest.co.in/ api.
-            </p>
+            <h1 className={cn("mb-1")}>All User</h1>
+            <p>Collection of users from https://gorest.co.in/ api.</p>
           </div>
 
           <Button

@@ -15,13 +15,8 @@ const PostCard = ({ id, title, body }: IPostType) => {
         "border border-neutral-100"
       )}
     >
-      <p className={cn("font-bold tracking-tight text-2xl line-clamp-2 mb-4")}>
-        {title}
-      </p>
-
-      <p className={cn("text-neutral-700 leading-relaxed line-clamp-4 mb-6")}>
-        {body}
-      </p>
+      <h4 className={cn("line-clamp-2 mb-4")}>{title}</h4>
+      <p className={cn("line-clamp-4 mb-6")}>{body}</p>
 
       <Button
         id={`post-detail-${id}-button`}

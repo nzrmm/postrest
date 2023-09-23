@@ -22,14 +22,8 @@ const Posts = () => {
 
       <div>
         <div className={cn("mb-8")}>
-          <p
-            className={cn(
-              "text-4xl font-bold leading-tight tracking-wide mb-1"
-            )}
-          >
-            All Post
-          </p>
-          <p className={cn("leading-loose text-neutral-700")}>
+          <h1 className={cn("mb-1")}>All Post</h1>
+          <p>
             Collection of posts from https://gorest.co.in/ api. Feel free to
             reads.
           </p>

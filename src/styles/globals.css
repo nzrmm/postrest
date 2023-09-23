@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold leading-tight tracking-wide;
+  }
+
+  h4 {
+    @apply text-2xl font-bold tracking-tight;
+  }
+
+  h5 {
+    @apply text-xl font-semibold;
+  }
+
+  h6 {
+    @apply text-lg font-bold;
+  }
+
+  p {
+    @apply leading-relaxed text-neutral-700;
+  }
+
+  span.span-small {
+    @apply text-sm text-neutral-700;
+  }
+
+  span.span-small-error {
+    @apply text-sm text-rose-500;
+  }
+
+  span.span-extra-small {
+    @apply text-xs text-neutral-500;
+  }
+}

@@ -50,7 +50,7 @@ const TextInput = ({
       />
 
       {errors && errors[id] && (
-        <span className={cn("text-sm text-rose-500")}>
+        <span className={cn("span-small-error")}>
           {(errors[id] as FieldError).message}
         </span>
       )}

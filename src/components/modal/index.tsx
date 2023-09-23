@@ -37,7 +37,7 @@ const Modal = ({ isOpen, onClose, children, ...props }: IModalProps) => {
             "flex items-center justify-between border-b border-b-neutral-200 p-4"
           )}
         >
-          <p className="text-xl font-semibold text-gray-900">{props.title}</p>
+          <h5>{props.title}</h5>
           <div
             className={cn(
               "rounded-md cursor-pointer hover:bg-neutral-200 p-0.5"

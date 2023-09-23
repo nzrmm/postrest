@@ -34,27 +34,27 @@ const DetailModal = () => {
       {!isLoadingUser && user && (
         <div className={cn("flex flex-col gap-3")}>
           <div className={cn("flex items-center")}>
-            <p className={cn("w-28 font-bold")}>Id</p>
-            <p className={cn("text-neutral-700")}>: {user?.id}</p>
+            <p className={cn("w-28 font-bold text-neutral-900")}>Id</p>
+            <p>: {user?.id}</p>
           </div>
 
           <div className={cn("flex items-center")}>
-            <p className={cn("w-28 font-bold")}>Name</p>
-            <p className={cn("text-neutral-700")}>: {user?.name}</p>
+            <p className={cn("w-28 font-bold text-neutral-900")}>Name</p>
+            <p>: {user?.name}</p>
           </div>
 
           <div className={cn("flex items-center")}>
-            <p className={cn("w-28 font-bold")}>Email</p>
-            <p className={cn("text-neutral-700")}>: {user?.email}</p>
+            <p className={cn("w-28 font-bold text-neutral-900")}>Email</p>
+            <p>: {user?.email}</p>
           </div>
 
           <div className={cn("flex items-center")}>
-            <p className={cn("w-28 font-bold")}>Gender</p>
-            <p className={cn("text-neutral-700")}>: {user?.gender}</p>
+            <p className={cn("w-28 font-bold text-neutral-900")}>Gender</p>
+            <p>: {user?.gender}</p>
           </div>
 
           <div className={cn("flex items-center")}>
-            <p className={cn("w-28 font-bold")}>Status</p>
+            <p className={cn("w-28 font-bold text-neutral-900")}>Status</p>
             <div className={cn("flex items-center gap-1")}>
               : <Badge>{user?.status}</Badge>
             </div>

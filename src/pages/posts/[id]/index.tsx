@@ -28,16 +28,12 @@ const Post = () => {
 
       <div className={cn("mx-auto sm:w-2/3")}>
         <div className={cn("mb-20")}>
-          <p className={cn("font-bold tracking-tight text-4xl mb-6")}>
-            {post?.title}
-          </p>
-          <p className={cn("text-neutral-700 leading-relaxed")}>{post?.body}</p>
+          <h1 className={cn("tracking-tight mb-6")}>{post?.title}</h1>
+          <p>{post?.body}</p>
         </div>
 
         <div>
-          <p className={cn("font-bold tracking-tight text-2xl mb-4")}>
-            Comments
-          </p>
+          <h4 className={cn("mb-4")}>Comments</h4>
           <div className={cn("flex flex-col divide-y")}>
             {!isEmpty(postComments) &&
               postComments?.map((item) => (
@@ -45,9 +41,7 @@ const Post = () => {
               ))}
 
             {isEmpty(postComments) && (
-              <p className={cn("italic text-neutral-700")}>
-                no comments available
-              </p>
+              <p className={cn("italic")}>no comments available</p>
             )}
           </div>
         </div>

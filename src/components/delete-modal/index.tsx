@@ -32,7 +32,7 @@ const DeleteModal = () => {
       <div>
         <div className={cn("text-center mb-6")}>
           <p className={cn("mb-2")}>Are you sure to delete user with id :</p>
-          <p className={cn("text-lg font-bold")}>{deleteModal.id}</p>
+          <h6>{deleteModal.id}</h6>
         </div>
 
         <div className={cn("flex gap-4")}>
