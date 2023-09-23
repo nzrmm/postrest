@@ -1,6 +1,12 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  UseQueryOptions,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import axiosInstance from "@/utils/axios-utils";
+import { IUserPayload } from "@/types/user";
 
 export const useUsers = <T>() => {
   return useQuery<T, Error>({
@@ -20,5 +26,20 @@ export const useUser = <T>(id: string, options?: UseQueryOptions<T, Error>) => {
       return data;
     },
     ...options,
+  });
+};
+
+export const useAddUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: IUserPayload) => {
+      return axiosInstance.post("/users", payload);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get_users"],
+      });
+    },
   });
 };
