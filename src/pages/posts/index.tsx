@@ -1,14 +1,24 @@
 import React from "react";
 import Head from "next/head";
+import { isEmpty } from "lodash";
 import { ImSpinner6 } from "react-icons/im";
 
-import { PostCard } from "@/components";
+import { PostCard, InfinitePagination } from "@/components";
 import { cn } from "@/utils/style";
 import { IPostType } from "@/types/post";
 import { usePosts } from "@/queries/post";
+import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+import { setParams } from "@/stores/post/postSlice";
 
 const Posts = () => {
-  const { data, isLoading, isError, error } = usePosts<IPostType[]>();
+  const dispatch = useAppDispatch();
+  const { params } = useAppSelector((state) => state.user);
+
+  const { data, isLoading, isError, error } = usePosts<IPostType[]>(params);
+
+  const handlePagination = (page: number) => {
+    dispatch(setParams({ field: "page", value: page }));
+  };
 
   return (
     <>
@@ -42,6 +52,14 @@ const Posts = () => {
             ))}
           </div>
         )}
+
+        <InfinitePagination
+          page={params.page}
+          disableOnNext={isEmpty(data)}
+          disableOnPrevious={params.page <= 1}
+          onNext={() => handlePagination(params.page + 1)}
+          onPrevious={() => handlePagination(params.page - 1)}
+        />
       </div>
     </>
   );

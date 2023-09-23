@@ -12,3 +12,8 @@ export type IPostCommentType = {
   email: string;
   body: string;
 };
+
+export type IPostParams = {
+  page: number;
+  limit: number;
+};

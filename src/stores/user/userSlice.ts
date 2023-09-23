@@ -36,7 +36,7 @@ const initialState: IInitialStateType = {
   },
 };
 
-const foodSlice = createSlice({
+const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -93,6 +93,6 @@ const foodSlice = createSlice({
   },
 });
 
-export default foodSlice.reducer;
+export default userSlice.reducer;
 export const { setDetailModal, setFormModal, setDeleteModal, setParams } =
-  foodSlice.actions;
+  userSlice.actions;

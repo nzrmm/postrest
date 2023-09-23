@@ -1,12 +1,16 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 import axiosInstance from "@/utils/axios-utils";
+import { IPostParams } from "@/types/post";
 
-export const usePosts = <T>() => {
+export const usePosts = <T>(params: IPostParams) => {
+  const { page, limit } = params;
   return useQuery<T, Error>({
-    queryKey: ["get_posts"],
+    queryKey: ["get_posts", page, limit],
     queryFn: async () => {
-      const { data } = await axiosInstance.get("/posts");
+      const { data } = await axiosInstance.get(
+        `/posts?page=${page}&limit=${limit}`
+      );
       return data;
     },
   });
