@@ -32,27 +32,27 @@ const DetailModal = () => {
         <div className={cn("flex flex-col gap-3")}>
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Id</p>
-            <p>: {data?.id}</p>
+            <p className={cn("flex-1")}>: {data?.id}</p>
           </div>
 
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Name</p>
-            <p>: {data?.name}</p>
+            <p className={cn("flex-1")}>: {data?.name}</p>
           </div>
 
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Email</p>
-            <p>: {data?.email}</p>
+            <p className={cn("flex-1")}>: {data?.email}</p>
           </div>
 
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Gender</p>
-            <p>: {data?.gender}</p>
+            <p className={cn("flex-1")}>: {data?.gender}</p>
           </div>
 
           <div className={cn("flex items-center")}>
             <p className={cn("w-28 font-bold text-neutral-900")}>Status</p>
-            <div className={cn("flex items-center gap-1")}>
+            <div className={cn("flex-1 flex items-center gap-1")}>
               : <Badge>{data?.status}</Badge>
             </div>
           </div>
